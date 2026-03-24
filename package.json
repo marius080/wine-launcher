@@ -1,0 +1,60 @@
+{
+  "name": "wine-launcher",
+  "version": "1.0.0",
+  "description": "Wine orchestration layer for macOS — manage bottles, backends, and launch Windows apps",
+  "main": "dist/main/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:main\" \"npm run dev:renderer\"",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "dev:renderer": "vite",
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build",
+    "start": "electron dist/main/main/index.js",
+    "package": "npm run build && electron-builder",
+    "clean": "rm -rf dist out"
+  },
+  "keywords": ["wine", "macos", "electron", "gptk", "d3dmetal", "bottles"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^41.0.3",
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "electron-builder": "^26.8.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.winelauncher.app",
+    "productName": "Wine Launcher",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["arm64"]
+        }
+      ],
+      "hardenedRuntime": true,
+      "darkModeSupport": true
+    },
+    "directories": {
+      "output": "out"
+    },
+    "files": [
+      "dist/**/*",
+      "resources/**/*"
+    ]
+  }
+}
